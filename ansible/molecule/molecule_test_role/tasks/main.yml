@@ -1,0 +1,11 @@
+---
+
+- name: Be patient
+  debug:
+    msg: "Apache Webserver will be installed now!"
+
+- name: Installing Webserver
+  yum:
+    name: httpd
+    state: present
+  when: ansible_os_family == 'RedHat'

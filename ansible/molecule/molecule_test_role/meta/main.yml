@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Philip Haberkern
+  description: Molecule testing role
+  company: thedatabaseme
+ 
+  license: MIT 
+ 
+  min_ansible_version: 2.9
+ 
+  platforms:
+  - name: centos
+    versions:
+    - 8 
+  - name: ubuntu
+    versions:
+    - 20.04
+ 
+  galaxy_tags: []
+ 
+dependencies: []
