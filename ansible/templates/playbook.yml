@@ -1,0 +1,18 @@
+---
+
+# Version 1.0.0
+
+- hosts: "{{ HOSTS | default('all') }}"
+  vars:
+    # Define Variables here
+  
+  tasks:
+    - name: Task 1
+      # Write the Module here
+
+    - name: Include Tasks
+      include_tasks: included_tasks.yaml
+
+  # You can also call a Role from your Playbook like so:
+  roles:
+    - role: role_name
