@@ -22,6 +22,6 @@ jobs:
         with:
           molecule_command: test
           molecule_args: -d docker
-          molecule_working_dir: thedatabaseme/ansible/molecule/molecule_test_role
+          molecule_working_dir: /github/workflow/thedatabaseme/ansible/molecule/molecule_test_role
         env:
           ANSIBLE_FORCE_COLOR: '1'
