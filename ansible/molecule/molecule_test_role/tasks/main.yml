@@ -4,8 +4,22 @@
   debug:
     msg: "Apache Webserver will be installed now!"
 
-- name: Installing Webserver
+- name: Installing Webserver on RedHat
   yum:
     name: httpd
     state: present
   when: ansible_os_family == 'RedHat'
+
+- name: Installing Webserver on Debian / Ubuntu
+  apt:
+    name: apache2
+    state: present
+    update_cache: true
+  when: ansible_os_family == 'Debian'
+
+- name: Start and enable Apache Webserver
+  systemd:
+    name: apache2
+    state: started
+    enabled: true
+  when: ansible_os_family == 'Debian'
