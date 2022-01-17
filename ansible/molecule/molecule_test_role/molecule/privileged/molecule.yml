@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu
+    image: geerlingguy/docker-ubuntu2004-ansible
+    tmpfs:
+      - /run
+      - /tmp
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    capabilities:
+      - SYS_ADMIN
+    command: "/sbin/init"
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
