@@ -1,0 +1,15 @@
+# Here with variable name
+
+{% if dict.variables is defined %}
+  {% for var, value in dict.variables.items() %}
+    Variable="{{var}}" value="{{ value }}"
+  {% endfor %}
+{% endif %}
+
+# Here without variable name
+
+{% if dict.variables is defined %}
+  {% for value in dict.variables %}
+    value="{{ value }}"
+  {% endfor %}
+{% endif %}
