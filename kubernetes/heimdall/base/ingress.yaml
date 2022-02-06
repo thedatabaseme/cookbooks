@@ -10,10 +10,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - heimdall.homelab.thedatabaseme.de
-    secretName: heimdall.homelab.thedatabaseme.de
+    - heimdall.mydomain.de
+    secretName: heimdall.mydomain.de
   rules:
-  - host: heimdall.homelab.thedatabaseme.de
+  - host: heimdall.mydomain.de
     http:
       paths:
       - path: /

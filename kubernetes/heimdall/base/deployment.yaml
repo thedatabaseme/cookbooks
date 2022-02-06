@@ -21,7 +21,7 @@ spec:
           claimName: heimdall-pvc
       - name: heimdall-ssl
         secret:
-          secretName: heimdall.homelab.thedatabaseme.de
+          secretName: heimdall.mydomain.de
       containers:
       - image: ghcr.io/linuxserver/heimdall:2.2.2
         name: heimdall
