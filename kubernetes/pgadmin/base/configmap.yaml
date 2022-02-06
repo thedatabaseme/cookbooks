@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+ name: pgadmin-config
+ namespace: pgadmin
+data:
+ servers.json: |
+   {
+       "Servers": {
+         "1": {
+           "Name": "PG - vmDocker",
+           "Group": "Servers",
+           "Port": 5432,
+           "Username": "postgres",
+           "Host": "vmdocker.home.lab",
+           "SSLMode": "prefer",
+           "MaintenanceDB": "postgres"
+         }
+       }
+   }
