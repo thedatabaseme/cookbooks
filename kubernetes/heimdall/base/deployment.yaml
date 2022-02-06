@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: heimdall 
+  namespace: heimdall
+  labels:
+    app: heimdall
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: heimdall
+  template:
+    metadata:
+      labels:
+        app: heimdall
+    spec:
+      volumes:
+      - name: heimdall
+        persistentVolumeClaim:
+          claimName: heimdall-pvc
+      - name: heimdall-ssl
+        secret:
+          secretName: heimdall.homelab.thedatabaseme.de
+      containers:
+      - image: ghcr.io/linuxserver/heimdall:2.2.2
+        name: heimdall
+        imagePullPolicy: Always
+        env:
+        - name: PGID
+          value: "1000"
+        - name: PUID
+          value: "1000"
+        - name: TZ
+          value: Europe/Berlin
+        ports:
+         - containerPort: 80
+           name: http-80
+           protocol: TCP
+         - containerPort: 443
+           name: https-443
+           protocol: TCP
+        volumeMounts:
+         - mountPath: /config
+           name: heimdall
+           subPath: config

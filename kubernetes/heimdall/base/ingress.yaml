@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: heimdall
+  namespace: heimdall
+  annotations:
+    kubernetes.io/ingress.class: "nginx"    
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  tls:
+  - hosts:
+    - heimdall.homelab.thedatabaseme.de
+    secretName: heimdall.homelab.thedatabaseme.de
+  rules:
+  - host: heimdall.homelab.thedatabaseme.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: heimdall-service
+            port:
+              number: 443
+
