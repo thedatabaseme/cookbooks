@@ -29,3 +29,7 @@ You can also run specific steps of a Molecule test (e.g. `create`):
 In order to login to a created test container, you can use `login` for this. The container needs to exist here (so not destroyed):
     
     - molecule login [-s <scenario_name>]
+
+# Molecule Tutorial
+
+For more tutorials on Molecule see my Blog article [here](https://thedatabaseme.de/2022/01/17/automated-testing-your-ansible-role-with-molecule-and-github-actions/).
