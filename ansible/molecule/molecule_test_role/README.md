@@ -1,38 +1,31 @@
-Role Name
-=========
+# Initialize Molecule Role and Scenario
 
-A brief description of the role goes here.
+You can create an empty role structure including Molecule default scenario using `molecule init role`. This will initialize
+a role structure as ansible-galaxy init would do but in addition the Molecule folder structure will be created.
+If you have an already existing role (structure), you can use `molecule init scenario`. You may want to define a different
+container runtime for Molecule with (e.g. for Docker `-d docker`. Default is `podman`.
 
-Requirements
-------------
+    - molecule init role <role_name> [-d docker]
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+    - molecule init scenario <scenario_name> [-d docker]
 
-Role Variables
---------------
+# Run a Molecule test
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+To run a Molecule test, head to the roles root directory and run molecule with the wanted scenario. If you do not specify
+a scenario name, the default scenario is started. Here is an example:
 
-Dependencies
-------------
+    - molecule test [-s <scenario_name>]
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+If you don't want to get the container destroyed after a test run, add the `--destroy=never` parameter to your `molecule` command.
 
-Example Playbook
-----------------
+You can also run specific steps of a Molecule test (e.g. `create`):
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+    - molecule create [-s <scenario_name>]
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    - molecule converge [-s <scenario_name>]
 
-License
--------
+    - molecule destroy [-s <scenario_name>]
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+In order to login to a created test container, you can use `login` for this. The container needs to exist here (so not destroyed):
+    
+    - molecule login [-s <scenario_name>]
