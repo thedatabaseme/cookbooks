@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+    # General configuration
+    config.vm.box = "hashicorp/bionic64"
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.ssh.insert_key = false
+
+    config.vm.provider :virtualbox do |v|
+        v.memory = 512
+        v.linked_clone = true
+    end
+
+    # Testserver 1
+    config.vm.define "testserver1" do |srv1|
+        srv1.vm.hostname = "testserver1"
+        srv1.vm.network "private_network", ip: "192.168.56.10"
+    end
+
+    # Testserver 2
+    config.vm.define "testserver2" do |srv2|
+        srv2.vm.hostname = "testserver2"
+        srv2.vm.network "private_network", ip: "192.168.56.11"
+    end
+
+    # Testserver 3
+    config.vm.define "testserver3" do |srv3|
+        srv3.vm.hostname = "testserver3"
+        srv3.vm.network "private_network", ip: "192.168.56.12"
+    end
+end
