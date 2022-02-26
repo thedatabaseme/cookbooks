@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: <INGRESS_NAME>
+  namespace: <INGRESS_ROLE_NAMESPACE>
+  annotations:
+    # for nginx as ingress controller
+    kubernetes.io/ingress.class: "nginx"    
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # if you have cert-manager installed, you may also deploy a signed certificate
+    # cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    # cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  tls:
+  - hosts:
+    - <SUBDOMAIN.DOMAIN>
+    secretName: <CERT_SECRET_NAME>
+  rules:
+  - host: <SUBDOMAIN.DOMAIN>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: <FORWARD_SERVICE_NAME>
+            port:
+              number: <PORT>
+
