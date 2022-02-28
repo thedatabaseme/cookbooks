@@ -23,4 +23,3 @@ spec:
             name: portainer-service
             port:
               number: 9443
-
