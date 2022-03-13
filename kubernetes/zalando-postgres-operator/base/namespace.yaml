@@ -2,3 +2,9 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: postgres-operator
+
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: postgres
