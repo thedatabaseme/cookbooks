@@ -1,0 +1,21 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-cluster
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 2Gi
+  numberOfInstances: 2
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  preparedDatabases:
+    demo: {}
+  postgresql:
+    version: "14"
+  enableMasterLoadBalancer: true
