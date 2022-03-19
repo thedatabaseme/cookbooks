@@ -1,5 +1,6 @@
-kind: Namespace
 apiVersion: v1
+kind: ConfigMap
 metadata:
   name: postgres-operator
-
+data:
+  resync_period: 60s

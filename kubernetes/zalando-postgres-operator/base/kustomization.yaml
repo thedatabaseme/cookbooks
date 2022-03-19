@@ -9,3 +9,6 @@ resources:
   - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/manifests/operator-service-account-rbac.yaml
   - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/manifests/postgres-operator.yaml
   - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/manifests/api-service.yaml
+
+patchesStrategicMerge:
+  - configmap.yaml
