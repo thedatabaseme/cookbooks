@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pod-config
+data:
+  WAL_S3_BUCKET: postgresql
+  WAL_BUCKET_SCOPE_PREFIX: ""
+  WAL_BUCKET_SCOPE_SUFFIX: ""
+  USE_WALG_BACKUP: "true"
+  USE_WALG_RESTORE: "true"
+  BACKUP_SCHEDULE: '00 10 * * *'
+  AWS_ACCESS_KEY_ID: postgresql
+  AWS_SECRET_ACCESS_KEY: Only4you
+  AWS_S3_FORCE_PATH_STYLE: "true" # needed for MinIO
+  AWS_ENDPOINT: http://minio.home.lab:9000
+  AWS_REGION: de01
+  WALG_DISABLE_S3_SSE: "true"
+  BACKUP_NUM_TO_RETAIN: "5"
+  CLONE_USE_WALG_RESTORE: "true"
