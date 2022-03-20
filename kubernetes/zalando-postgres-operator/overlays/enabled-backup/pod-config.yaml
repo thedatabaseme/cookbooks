@@ -10,9 +10,9 @@ data:
   USE_WALG_RESTORE: "true"
   BACKUP_SCHEDULE: '00 10 * * *'
   AWS_ACCESS_KEY_ID: postgresql
-  AWS_SECRET_ACCESS_KEY: Only4you
+  AWS_SECRET_ACCESS_KEY: supersecret
   AWS_S3_FORCE_PATH_STYLE: "true" # needed for MinIO
-  AWS_ENDPOINT: http://minio.home.lab:9000
+  AWS_ENDPOINT: http://minio.home.lab:9000 # Endpoint URL to your S3 Endpoint; MinIO in this example
   AWS_REGION: de01
   WALG_DISABLE_S3_SSE: "true"
   BACKUP_NUM_TO_RETAIN: "5"
