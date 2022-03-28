@@ -13,7 +13,7 @@ spec:
     - superuser
     - createdb
   databases:
-    demo: demouser  # dbname: owner
+    demo: demo_owner  # dbname: owner
   preparedDatabases:
     demo: {}
   postgresql:
