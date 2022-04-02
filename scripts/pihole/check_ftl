@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Place under /etc/scripts for FTL Status check of keepalived
+
+STATUS=$(ps ax | grep -v grep | grep pihole-FTL)
+
+if [ "$STATUS" != "" ]
+then
+    exit 0
+else
+    exit 1
+fi

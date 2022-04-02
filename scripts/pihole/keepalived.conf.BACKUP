@@ -1,0 +1,37 @@
+# Place under /etc/keepalived/keepalived.conf on BACKUP pihole
+global_defs {
+  router_id pihole-dns-02
+  script_user root
+  enable_script_security
+}
+
+vrrp_script chk_ftl {
+  script "/etc/scripts/chk_ftl"
+  interval 1
+  weight -10
+}
+
+vrrp_instance PIHOLE {
+  state BACKUP
+  interface eth0
+  virtual_router_id 55
+  priority 145
+  advert_int 1
+  unicast_src_ip 192.168.1.3
+  unicast_peer {
+    192.168.1.2
+  }
+
+  authentication {
+    auth_type PASS
+        auth_pass secret
+  }
+
+  virtual_ipaddress {
+    192.168.1.4/24
+  }
+
+  track_script {
+    chk_ftl
+  }
+}
