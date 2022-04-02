@@ -8,7 +8,7 @@ data:
   WAL_BUCKET_SCOPE_SUFFIX: ""
   USE_WALG_BACKUP: "true"
   USE_WALG_RESTORE: "true"
-  BACKUP_SCHEDULE: '00 10 * * *'
+  BACKUP_SCHEDULE: '00 12 * * *'
   AWS_ACCESS_KEY_ID: postgresql
   AWS_SECRET_ACCESS_KEY: supersecret
   AWS_S3_FORCE_PATH_STYLE: "true" # needed for MinIO
