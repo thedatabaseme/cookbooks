@@ -1,0 +1,23 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-cluster
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 2Gi
+  numberOfInstances: 2
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demo_owner  # dbname: owner
+  preparedDatabases:
+    demo: {}
+  postgresql:
+    version: "14"
+  clone:
+    cluster: "postgres-demo-cluster"  # Inplace restore when having the same cluster name as the source
+    timestamp: "2022-04-12T19:30:00+00:00"  # timezone required (offset relative to UTC, see RFC 3339 section 5.6)

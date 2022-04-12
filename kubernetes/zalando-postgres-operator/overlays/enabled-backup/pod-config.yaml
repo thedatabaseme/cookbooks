@@ -17,3 +17,11 @@ data:
   WALG_DISABLE_S3_SSE: "true"
   BACKUP_NUM_TO_RETAIN: "5"
   CLONE_USE_WALG_RESTORE: "true"
+  CLONE_AWS_ACCESS_KEY_ID: postgresql
+  CLONE_AWS_SECRET_ACCESS_KEY: supersecret
+  CLONE_AWS_ENDPOINT: http://minio.home.lab:9000 # Endpoint URL to your S3 Endpoint; MinIO in this example
+  CLONE_AWS_REGION: de01
+  CLONE_METHOD: CLONE_WITH_WALE
+  CLONE_WAL_BUCKET_SCOPE_PREFIX: ""
+  CLONE_WAL_S3_BUCKET: postgresql
+  CLONE_AWS_S3_FORCE_PATH_STYLE: "true"
