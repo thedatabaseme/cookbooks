@@ -2,3 +2,5 @@ dict:
   variables:
     VAR1: value1
     VAR2: value2
+
+counter: 3

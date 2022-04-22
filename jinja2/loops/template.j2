@@ -13,3 +13,9 @@
     value="{{ value }}"
   {% endfor %}
 {% endif %}
+
+# Here a loop with an Index we're using
+
+{% for n in range(counter) %}
+  worker{{ n }}
+{% endfor %}
