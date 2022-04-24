@@ -2,7 +2,7 @@ galaxy_info:
   author: thedatabaseme
   description: Molecule testing role
   role_name: molecule_test_role
-  company:
+  company: thedatabaseme
  
   license: MIT 
  
