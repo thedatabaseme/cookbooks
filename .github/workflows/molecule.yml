@@ -1,3 +1,4 @@
+---
 name: Molecule
 
 on:
@@ -14,14 +15,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          path: "${{ github.repository }}"
-          
-      - name: Molecule
-        uses: gofrolist/molecule-action@v2.2.20
-        with:
-          molecule_command: test
-          molecule_args: -d docker
-          molecule_working_dir: thedatabaseme/cookbooks/ansible/molecule/molecule_test_role
-        env:
-          ANSIBLE_FORCE_COLOR: '1'
+          python-version: '3.x'
+
+      - name: Install dependencies.
+        run: pip3 install yamllint ansible-lint ansible "molecule[lint,docker]"
+
+      - name: Install Galaxy dependencies.
+        run: ansible-galaxy collection install community.docker
+
+      - name: Run molecule
+        run: "cd ansible/molecule/molecule_test_role && molecule test"
