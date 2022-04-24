@@ -4,10 +4,10 @@ kind: Kustomization
 namespace: postgres-operator
 
 resources:
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/ui/manifests/deployment.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/ui/manifests/ingress.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/ui/manifests/service.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.7.1/ui/manifests/ui-service-account-rbac.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/ui/manifests/deployment.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/ui/manifests/ingress.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/ui/manifests/service.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/ui/manifests/ui-service-account-rbac.yaml
 
 patchesStrategicMerge:
   - "ingress.yaml"
