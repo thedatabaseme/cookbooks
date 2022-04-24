@@ -11,17 +11,7 @@ provisioner:
   name: ansible
 verifier:
   name: ansible
-# lint: |
-#   set -e
-#   yamllint .
-#   ansible-lint .
-scenario:
-  test_sequence:
-    - destroy
-#    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - verify
-    - destroy
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
