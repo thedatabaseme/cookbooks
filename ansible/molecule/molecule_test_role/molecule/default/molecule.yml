@@ -14,4 +14,4 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint .
+  ansible-lint . -x fqcn-builtins
