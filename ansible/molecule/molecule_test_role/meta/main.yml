@@ -1,8 +1,8 @@
 galaxy_info:
-  author: Philip Haberkern
+  author: thedatabaseme
   description: Molecule testing role
   role_name: molecule_test_role
-  company: thedatabaseme
+  company:
  
   license: MIT 
  
