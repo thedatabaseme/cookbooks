@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$script = <<-SCRIPT
+echo Start Github Action runner provisioning
+useradd -s /bin/bash -m -d /home/runner -G sudo runner
+SCRIPT
+
+Vagrant.configure("2") do |config|
+    # General configuration
+    config.vm.box = "generic/ubuntu2004"
+    config.ssh.insert_key = false
+
+    config.vm.provider :virtualbox do |v|
+        v.memory = 512
+        v.linked_clone = true
+    end
+
+    # VM configuration
+    config.vm.define "runner" do |runner|
+        runner.vm.hostname = "vagrant-runner"
+        runner.vm.network "private_network", ip: "192.168.56.20"
+    end
+
+    config.vm.provision "shell", inline: $script 
+end
