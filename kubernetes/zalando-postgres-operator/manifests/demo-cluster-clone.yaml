@@ -19,5 +19,5 @@ spec:
   postgresql:
     version: "14"
   clone:
-    cluster: "postgres-demo-cluster"  # Inplace restore when having the same cluster name as the source
+    cluster: "postgres-demo-cluster"  # Source instance name; Instance name to clone from
     timestamp: "2022-05-03T19:50:00+00:00"  # timezone required (offset relative to UTC, see RFC 3339 section 5.6)
