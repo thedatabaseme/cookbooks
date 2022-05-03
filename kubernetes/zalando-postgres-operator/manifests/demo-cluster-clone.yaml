@@ -2,7 +2,7 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: postgres-demo-cluster-clone
-  namespace: postgres
+  namespace: postgres-clone
 spec:
   teamId: "postgres"
   volume:
@@ -20,4 +20,4 @@ spec:
     version: "14"
   clone:
     cluster: "postgres-demo-cluster"  # Inplace restore when having the same cluster name as the source
-    timestamp: "2022-04-12T19:00:00+00:00"  # timezone required (offset relative to UTC, see RFC 3339 section 5.6)
+    timestamp: "2022-05-03T19:50:00+00:00"  # timezone required (offset relative to UTC, see RFC 3339 section 5.6)
