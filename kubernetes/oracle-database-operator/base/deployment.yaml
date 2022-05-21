@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: oracle-database-operator-controller-manager
+  namespace: oracle-database-operator-system
+spec:
+  replicas: 1
