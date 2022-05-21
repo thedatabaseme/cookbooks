@@ -10,5 +10,5 @@ resources:
   - resource1.yaml
   - resource2.yaml
 
-patchStrategicMerge:
+patchesStrategicMerge:
   - patch1.yaml
