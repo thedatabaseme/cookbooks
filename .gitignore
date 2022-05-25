@@ -1,2 +1,4 @@
 .vagrant
+.terraform
+.terraform.lock.hcl
 .idea
