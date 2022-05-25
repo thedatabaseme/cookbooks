@@ -20,10 +20,6 @@ provider "openstack" {
   project_domain_id = "<OS_PROJECT_DOMAIN_ID>"
 }
 
-data "openstack_networking_network_v2" "network" {
-  name = "default_network"
-}
-
 resource "openstack_networking_floatingip_v2" "floatip_1" {
   pool = "floating_network"
 }
