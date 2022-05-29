@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: metallb-system
 
 resources:
-  - https://raw.githubusercontent.com/metallb/metallb/v0.10.3/manifests/namespace.yaml
+  - https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/namespace.yaml
   - configmap.yaml
-  - https://raw.githubusercontent.com/metallb/metallb/v0.10.3/manifests/metallb.yaml
+  - https://raw.githubusercontent.com/metallb/metallb/v0.12.1/manifests/metallb.yaml
