@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  generators:
+  - clusters: {} # This is a generator, specifically, a cluster generator.
+  template: 
+    # This is a template Argo CD Application, but with support for parameter substitution.
+    metadata:
+      name: '{{name}}-guestbook'
+    spec:
+      project: "default"
+      source:
+        repoURL: https://github.com/argoproj/argocd-example-apps/
+        targetRevision: HEAD
+        path: kustomize-guestbook
+      destination:
+        server: '{{server}}'
+        namespace: default
