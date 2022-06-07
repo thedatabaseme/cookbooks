@@ -5,10 +5,10 @@ namespace: postgres-operator
 
 resources:
   - namespace.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/manifests/configmap.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/manifests/operator-service-account-rbac.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/manifests/postgres-operator.yaml
-  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.0/manifests/api-service.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.1/manifests/configmap.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.1/manifests/operator-service-account-rbac.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.1/manifests/postgres-operator.yaml
+  - https://raw.githubusercontent.com/zalando/postgres-operator/v1.8.1/manifests/api-service.yaml
 
 patchesStrategicMerge:
   - configmap.yaml
