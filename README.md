@@ -35,3 +35,7 @@ the `scripts` folder.
 
 Some Vagrant examples can be found within the `vagrant` subfolder. Also there are some
 integrations with Vagrant and Ansible there.
+
+## 📚 Oracle
+
+Collection of sidenotes for Oracle blog tutorials.
