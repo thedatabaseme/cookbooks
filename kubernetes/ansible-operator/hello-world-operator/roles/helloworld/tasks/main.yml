@@ -1,0 +1,23 @@
+---
+
+- name: Start hello-world
+  kubernetes.core.k8s:
+    definition:
+      kind: Deployment
+      apiVersion: apps/v1
+      metadata:
+        name: '{{ ansible_operator_meta.name }}-helloworld'
+        namespace: '{{ ansible_operator_meta.namespace }}'
+      spec:
+        replicas: "{{ size }}"
+        selector:
+          matchLabels:
+            app: helloworld
+        template:
+          metadata:
+            labels:
+              app: helloworld
+          spec:
+            containers:
+            - name: helloworld
+              image: "docker.io/hello-world:latest"

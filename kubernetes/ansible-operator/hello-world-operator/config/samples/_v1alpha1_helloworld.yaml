@@ -1,0 +1,7 @@
+apiVersion: thedatabase.me/v1alpha1
+kind: Helloworld
+metadata:
+  name: helloworld-sample
+  namespace: helloworld
+spec:
+  size: 3
