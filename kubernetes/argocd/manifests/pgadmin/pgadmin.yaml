@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pgadmin
+spec:
+  destination:
+    name: 'pgadmin'
+    namespace: argocd
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: kubernetes/argocd/manifests/pgadmin/
+    repoURL: 'https://github.com/thedatabaseme/cookbooks-private.git'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
