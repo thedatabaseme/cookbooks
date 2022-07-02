@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy Hello World
 
 on:
   push:
