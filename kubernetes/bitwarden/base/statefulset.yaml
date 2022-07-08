@@ -1,0 +1,68 @@
+---
+apiVersion: "apps/v1"
+kind: StatefulSet
+metadata:
+  name: bitwarden
+  labels:
+    app: bitwarden
+spec:
+  serviceName: bitwarden
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitwarden
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: bitwarden
+    spec:
+      serviceAccountName: bitwarden
+      securityContext:
+        fsGroup: 33
+        runAsUser: 33
+      containers:
+      - image: vaultwarden/server:1.25.0
+        imagePullPolicy: IfNotPresent
+        name: bitwarden
+        envFrom:
+        - configMapRef:
+            name: bitwarden
+        env:
+        - name: SMTP_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: bitwarden-smtp
+              key: emailUser
+        - name: SMTP_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bitwarden-smtp
+              key: emailPassword
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 3012
+          name: websocket
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        resources:
+          limits:
+            cpu: 300m
+            memory: 1Gi
+          requests:
+            cpu: 50m
+            memory: 256Mi
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: "2Gi"

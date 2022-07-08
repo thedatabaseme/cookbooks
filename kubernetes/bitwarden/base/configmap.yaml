@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bitwarden
+  labels:
+    app: bitwarden
+data: 
+  # SMTP settings, see:
+  # https://github.com/dani-garcia/vaultwarden/wiki/SMTP-Configuration
+  SMTP_HOST: 'smtp.yourmail.com'
+  SMTP_FROM: 'user@yourmail.com'
+  SMTP_PORT: '587'
+  SMTP_SECURITY: 'starttls'
+  # nginx-ingress-controller has built in support for Websockets
+  # Project: https://github.com/kubernetes/ingress-nginx
+  WEBSOCKET_ENABLED: 'true'
+  # Where to store persistent data
+  # make sure that this reflects the setting in StatefulSet, otherwise data might be lost
+  DATA_FOLDER: '/data'
+  # What domain is bitwarden going to be hosted on
+  # This needs to reflect setting in ingress otherwise some 2FA methods might not work
+  DOMAIN: 'https://bitwarden.mydomain.de'
+  # Number of workers to spin up for the service
+  ROCKET_WORKERS: '10'
+  # Show password hint instead of sending it via email
+  SHOW_PASSWORD_HINT: 'false'
+  # Enable Vault interface, when disabled, only API is served
+  WEB_VAULT_ENABLED: 'true'
+  # Port to serve http requests on
+  # most likely no need to change this here, look at ingress configuration instead
+  ROCKET_PORT: '8080'
+  # Allow registration of new users
+  SIGNUPS_ALLOWED: 'true'
+  # Allow current users invite new users even if registrations are otherwise disabled.
+  # https://github.com/dani-garcia/vaultwarden/wiki/Disable-invitations
+  INVITATIONS_ALLOWED: 'true'
+  

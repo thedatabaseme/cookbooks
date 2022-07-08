@@ -1,0 +1,35 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bitwarden
+  labels:
+    app: bitwarden
+  annotations:
+    # the name of the nginx-ingress-controller class
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+  - hosts:
+    - bitwarden.mydomain.de
+    secretName: tls-secret
+  rules:
+  - host: bitwarden.mydomain.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: bitwarden
+            port:
+              number: 80
+      - path: /notifications/hub
+        pathType: Prefix
+        backend:
+          service:
+            name: bitwarden
+            port:
+              number: 3012
