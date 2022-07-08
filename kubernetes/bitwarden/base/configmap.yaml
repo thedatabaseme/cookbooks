@@ -35,4 +35,3 @@ data:
   # Allow current users invite new users even if registrations are otherwise disabled.
   # https://github.com/dani-garcia/vaultwarden/wiki/Disable-invitations
   INVITATIONS_ALLOWED: 'true'
-  
