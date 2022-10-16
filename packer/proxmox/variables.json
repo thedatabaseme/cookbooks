@@ -1,0 +1,11 @@
+{
+  "proxmox_hostname": "proxmox1:8006",
+  "proxmox_username": "root@pam",
+  "proxmox_password": "supersecret",
+  "proxmox_node":     "proxmox1",
+  "version_tag":      "1.0.0",
+  "clone_vm":         "vmSrvUbuntu22tmpl",
+
+  "ssh_username":     "packer",
+  "ssh_password":     "packer"
+}

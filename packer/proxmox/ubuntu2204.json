@@ -1,0 +1,47 @@
+{
+  "builders": [
+    {
+      "type": "proxmox-clone",
+      "proxmox_url": "https://{{user `proxmox_hostname`}}/api2/json",
+      "username": "{{user `proxmox_username`}}",
+      "password": "{{user `proxmox_password`}}",
+      "node": "{{user `proxmox_node`}}",
+      "insecure_skip_tls_verify": true,
+      "task_timeout": "10m",
+      
+      "clone_vm": "{{ user `clone_vm`}}",
+      "full_clone": false,
+
+      "template_name": "{{ user `clone_vm` }}{{ user `version_tag`}}",
+      "template_description": "image made from packer",
+
+      "os": "l26",
+      "cores": 1,
+      "sockets": 1,
+      "memory": 2048,
+      "network_adapters": [
+        {
+          "bridge": "vmbr0"
+        }
+      ],
+
+			"ssh_timeout": "90m",
+			"ssh_password": "{{ user `ssh_password` }}",
+			"ssh_username": "{{ user `ssh_username` }}"
+    }
+  ],
+
+	"provisioners": [
+		{
+			"pause_before": "20s",
+			"type": "shell",
+			"inline": [
+				"echo {{ user `version_tag` }} > provision.txt",
+				"sudo apt update",
+				"sudo apt -y upgrade",
+				"sudo apt -y install apache2",
+				"sudo apt -y install qemu-guest-agent cloud-init"
+			]
+		}
+	]
+}
