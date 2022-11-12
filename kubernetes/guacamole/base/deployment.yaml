@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+  template:
+    metadata:
+      labels:
+        app: guacamole
+    spec:
+      containers:
+        - name: guacd
+          image: guacamole/guacd:1.4.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4822
+          readinessProbe:
+            tcpSocket:
+              port: 4822
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 4822
+            initialDelaySeconds: 15
+            periodSeconds: 20
+        - name: guacamole
+          image: guacamole/guacamole:1.4.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: GUACD_HOSTNAME
+              value: "localhost"
+            - name: GUACD_PORT
+              value: "4822"
+            - name: POSTGRES_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole-database-credentials
+                  key: postgres-port
+            - name: POSTGRES_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole-database-credentials
+                  key: postgres-hostname
+            - name: POSTGRES_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole-database-credentials
+                  key: postgres-database
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole-database-credentials
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: guacamole-database-credentials
+                  key: postgres-password
+          ports:
+            - name: guacamole-app
+              containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20

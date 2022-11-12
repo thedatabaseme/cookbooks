@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guacamole
+  namespace: guacamole
+  labels:
+    app: guacamole
+  annotations:
+    # the name of the nginx-ingress-controller class
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+spec:
+  tls:
+  - hosts:
+    - guacamole.mydomain.de
+    secretName: guacamole.mydomain.de
+  rules:
+  - host: guacamole.mydomain.de
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: guacamole
+            port:
+              number: 8080
