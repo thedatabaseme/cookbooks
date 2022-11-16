@@ -9,6 +9,7 @@ metadata:
   annotations:
     # the name of the nginx-ingress-controller class
     kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/app-root: /guacamole
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
   tls:
