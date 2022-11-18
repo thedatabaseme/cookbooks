@@ -67,7 +67,7 @@ spec:
             cpu: 1000m
             memory: 1000Mi
         volumeMounts:
-        - mountPath: /path
+        - mountPath: /data
           name: data
   volumeClaimTemplates:
   - metadata:
