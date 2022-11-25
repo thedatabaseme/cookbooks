@@ -20,7 +20,7 @@ spec:
         persistentVolumeClaim:
           claimName: heimdall-pvc
       containers:
-      - image: linuxserver/heimdall:2.4.15
+      - image: linuxserver/heimdall:2.5.2
         name: heimdall
         imagePullPolicy: Always
         env:
