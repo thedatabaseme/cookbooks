@@ -29,7 +29,6 @@ spec:
           volumeMounts:
             - name: kuma-data
               mountPath: /app/data
-
   volumeClaimTemplates:
     - metadata:
         name: kuma-data
