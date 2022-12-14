@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  selector:
+    matchLabels:
+      app: nextcloud
+  serviceName: nextcloud-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+      - name: nextcloud
+        image: nextcloud:25.0.2
+        ports:
+        - containerPort: 80
+          name: nextcloud
+        volumeMounts:
+        - name: nextcloud-data
+          mountPath: /var/www/html
+  volumeClaimTemplates:
+  - metadata:
+      name: nextcloud-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

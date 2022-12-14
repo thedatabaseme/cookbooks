@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud-service
+  namespace: nextcloud
+spec:
+  selector:
+    app: nextcloud
+  ports:
+    - name: http-80
+      protocol: TCP
+      port: 80
