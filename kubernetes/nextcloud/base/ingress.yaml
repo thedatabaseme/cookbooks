@@ -5,7 +5,13 @@ metadata:
   namespace: nextcloud
   annotations:
     kubernetes.io/ingress.class: "nginx"    
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
+  tls:
+  - hosts:
+    - nextcloud.mydomain.de
+    secretName: nextcloud.mydomain.de
   rules:
   - host: nextcloud.mydomain.de
     http:
