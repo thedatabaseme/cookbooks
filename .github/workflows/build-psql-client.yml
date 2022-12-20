@@ -26,7 +26,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=pr
-            type=semver,pattern={{version}}
+            type=semver,pattern=v{{major}}.{{minor}}.{{patch}}
 
       - name: Login to image repository
         if: github.ref_type == 'tag'
@@ -40,7 +40,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: docker/dockerfile/hello-world/Dockerfile
+          file: docker/dockerfile/psql-client/Dockerfile
           push: ${{ github.ref_type == 'tag' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
