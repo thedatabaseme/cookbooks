@@ -1,0 +1,28 @@
+apiVersion: thedatabase.me/v1alpha1
+kind: Nextcloud
+metadata:
+  name: nextcloud-sample
+  namespace: nextcloud-sample
+spec:
+# logLevel: debug # Optional, setting this to debug will output more logs and create templated files
+  replicaCount: 1 # Optional, will default to 1
+  nextcloudImageVersion: 25.0.2 # Optional
+  volume:
+    volumeSize: 1Gi
+#    storageClass: nfs-client # Optional, will use the default StorageClass when not specified
+  service:
+    type: ClusterIP # Could be ClusterIP, NodePort or LoadBalancer
+#    nodePort: 32757 # When service.type is NodePort you can specify a port within 30000-32767
+
+#  loadBalancer: # Will only be applied when service.type is LoadBalancer
+#    annotations: |
+#      metallb.universe.tf/address-pool: default
+
+#  ingress:
+#    type: Ingress # Optional if you want to use an Ingress resource
+#    hostname: mynextcloud.example.com # mandatory
+#    tls: yes # Optional, can be yes or no
+#    annotations: |
+#      kubernetes.io/ingress.class: "nginx"
+#      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+#      cert-manager.io/cluster-issuer: "letsencrypt-staging"
