@@ -3,12 +3,12 @@ kind: Kustomization
 
 resources:
   # Find the latest tag here: https://github.com/thedatabaseme/nextcloud-operator/releases
-  - https://github.com/thedatabaseme/nextcloud-operator/config/default?ref=v0.1.0
+  - https://github.com/thedatabaseme/nextcloud-operator/config/default?ref=v0.1.1
 
 # Set the image tags to match the git version from above
 images:
   - name: ghcr.io/thedatabaseme/nextcloud-operator
-    newTag: v0.1.0
+    newTag: v0.1.1
 
 # Specify a custom namespace in which to install Nextcloud Operator
 namespace: nextcloud-operator
