@@ -1,0 +1,41 @@
+---
+
+- hosts: "{{ HOSTS | default ('all') }}"
+  gather_facts: false
+  tasks:
+
+  - name: Install Node exporter
+    ansible.builtin.package:
+      name: prometheus-node-exporter
+      state: latest
+    become: true
+
+  - name: Configure Node exporter
+    ansible.builtin.lineinfile:
+      path: /etc/default/prometheus-node-exporter
+      regexp: '^ARGS='
+      line: 'ARGS="--collector.diskstats.ignored-devices=^(ram|loop|fd)\d+$ --collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run)($|/) --collector.textfile.directory=/var/lib/prometheus/node-exporter --web.listen-address localhost:9100"' # noqa line-length
+    become: true
+    register: node_exporter_config
+
+  - name: Reload Node exporter service
+    ansible.builtin.service:
+      name: prometheus-node-exporter
+      state: restarted
+    become: true
+    when: (node_exporter_config.changed)
+
+  - name: Place Node exporter upload script
+    ansible.builtin.template:
+      src: push_node_exporter_metrics.sh.j2
+      dest: /root/push_node_exporter_metrics.sh
+      owner: root
+      mode: '0755'
+    become: true
+
+  - name: Add Node exporter upload to crontab
+    ansible.builtin.cron:
+      name: "upload node-exporter metrics"
+      minute: "*/1"
+      job: "/root/push_node_exporter_metrics.sh &> /dev/null"
+    become: true

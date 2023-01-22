@@ -1,0 +1,4 @@
+#!/bin/bash
+PUSHGATEWAY_SERVER=http://{{ pushgateway_server }}:{{ pushgateway_port }}
+NODE_NAME=`hostname`
+curl -s localhost:9100/metrics | curl --data-binary @- $PUSHGATEWAY_SERVER/metrics/job/node-exporter/instance/$NODE_NAME
