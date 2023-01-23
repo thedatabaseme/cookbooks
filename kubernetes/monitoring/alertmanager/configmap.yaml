@@ -1,0 +1,30 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: alert-emailer
+      group_by: ['alertname', 'priority']
+      group_wait: 10s
+      repeat_interval: 30s
+    receivers:
+    - name: alert-emailer
+      email_configs:
+      - to: email@example.com
+        from: email@example.com
+        smarthost: <yourmailserver>:<tlsport>
+        auth_username: 'email@example.com'
+        auth_identity: 'email@example.com'
+        auth_password: 'Supersecret'
+        require_tls: true
+    inhibit_rules:
+      - source_match:
+          severity: 'critical'
+        target_match:
+          severity: 'warning'
+        equal: ['alertname', 'dev', 'instance']

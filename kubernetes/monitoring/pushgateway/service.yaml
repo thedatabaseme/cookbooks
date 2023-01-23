@@ -1,0 +1,11 @@
+kind: Service
+metadata:
+  name: pushgateway-service
+  namespace: monitoring
+spec:
+  selector: 
+    app: pushgateway-server
+  type: LoadBalancer
+  ports:
+    - port: 8120
+      targetPort: 9091
