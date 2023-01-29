@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  minio:
+    container_name: fritz-exporter
+    environment:
+      - FRITZ_HOSTNAME=fritz.box
+      - FRITZ_PASSWORD=supersecret
+      - FRITZ_USERNAME=<username>
+    image: pdreker/fritz_exporter:2
+    ports:
+      - '9787:9787'
+    restart: unless-stopped
