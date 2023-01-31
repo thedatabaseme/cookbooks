@@ -4,3 +4,5 @@ metadata:
   name: postgres-operator
 data:
   resync_period: 60s
+  enable_readiness_probe: "true"
+  pod_management_policy: parallel
