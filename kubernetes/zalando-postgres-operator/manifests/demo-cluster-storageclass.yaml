@@ -1,0 +1,21 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-cluster
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 5Gi
+    storageClass: nfs-client  # storageclass name
+  numberOfInstances: 2
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demo_owner  # dbname: owner
+  preparedDatabases:
+    demo: {}
+  postgresql:
+    version: "14"
