@@ -3,11 +3,9 @@ kind: Kustomization
 
 namespace: nfs-provisioner
 
-bases:
-  - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/deploy/
-
 resources:
   - namespace.yaml
+  - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/deploy/?ref=nfs-subdir-external-provisioner-4.0.17
 
 patchesStrategicMerge:
   - deployment.yaml
