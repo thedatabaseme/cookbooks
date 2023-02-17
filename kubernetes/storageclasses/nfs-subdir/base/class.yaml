@@ -4,6 +4,6 @@ metadata:
   name: nfs-client
 parameters:
   archiveOnDelete: "true"
-  allowVolumeExpansion: "true" # enable to allow online volume expansion
+allowVolumeExpansion: true # enable to allow online volume expansion
 mountOptions:
   - nfsvers=3
