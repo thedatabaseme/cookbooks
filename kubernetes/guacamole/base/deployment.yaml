@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: guacd
-          image: guacamole/guacd:1.4.0
+          image: guacamole/guacd:1.5.0
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 4822
@@ -30,7 +30,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
         - name: guacamole
-          image: guacamole/guacamole:1.4.0
+          image: guacamole/guacamole:1.5.0
           imagePullPolicy: IfNotPresent
           env:
             - name: GUACD_HOSTNAME
