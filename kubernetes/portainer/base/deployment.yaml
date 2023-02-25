@@ -7,7 +7,7 @@ metadata:
     io.portainer.kubernetes.application.stack: portainer
     app.kubernetes.io/name: portainer
     app.kubernetes.io/instance: portainer
-    app.kubernetes.io/version: "ce-latest-ee-2.16.2"
+    app.kubernetes.io/version: "ce-latest-ee-2.17.1"
 spec:
   replicas: 1
   strategy:
