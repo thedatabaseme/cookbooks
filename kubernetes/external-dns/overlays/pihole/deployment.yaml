@@ -25,7 +25,13 @@ spec:
             name: pihole-password
         args:
         - --source=service
-        - --source=ingress # uncomment to also use ingress as source
+        - --source=ingress
+        # Uncomment the following section if you want to only add
+        # DNS entries for ingress objects, that have a specific annotation
+        # added to them. Ignore the rules and tls hostname section then.
+        # - --annotation-filter=external-dns.alpha.kubernetes.io/hostname  # Only use the hostname annotation to add as DNS entry
+        # - --ignore-ingress-rules-spec  # Ignore any hosts defined in the ingress rules
+        # - --ignore-ingress-tls-spec   # Ignore any hosts defined in the ingress tls section
         # Pihole only supports A/CNAME records so there is no mechanism to track ownership.
         # You don't need to set this flag, but if you leave it unset, you will receive warning
         # logs when ExternalDNS attempts to create TXT records.
