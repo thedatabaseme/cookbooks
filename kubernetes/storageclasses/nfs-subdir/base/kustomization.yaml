@@ -5,7 +5,7 @@ namespace: nfs-provisioner
 
 resources:
   - namespace.yaml
-  - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/deploy/?ref=nfs-subdir-external-provisioner-4.0.17
+  - https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner/deploy/?ref=nfs-subdir-external-provisioner-4.0.18
 
 patchesStrategicMerge:
   - deployment.yaml
