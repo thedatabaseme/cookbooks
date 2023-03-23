@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 bases:
-  - https://github.com/actions/actions-runner-controller/releases/download/v0.27.0/actions-runner-controller.yaml
+  - https://github.com/actions/actions-runner-controller/releases/download/v0.27.1/actions-runner-controller.yaml
 
 resources:
   - secret.yaml
