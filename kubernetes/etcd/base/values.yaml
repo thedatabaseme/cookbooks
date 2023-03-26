@@ -1,0 +1,8 @@
+global:
+  storageClass: "local-path"
+kubeVersion: "1.24"
+auth:
+  rbac:
+    existingSecret: "etcd-rbac"
+    existingSecretPasswordKey: "rootPassword"
+replicaCount: 3

@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: etcd
+  namespace: etcd
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: ETCD_ENABLE_V2
+          value: "true"
+        name: etcd

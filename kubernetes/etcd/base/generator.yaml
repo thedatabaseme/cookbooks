@@ -1,0 +1,11 @@
+apiVersion: khelm.mgoltzsche.github.com/v2
+kind: ChartRenderer
+metadata:
+  name: "etcd"
+  namespace: etcd
+repository: https://charts.bitnami.com/bitnami
+chart: etcd
+version: 8.8.0
+values:
+valueFiles:
+  - values.yaml
