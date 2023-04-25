@@ -5,4 +5,4 @@ RUN apt update && \
 
 WORKDIR /
 
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["/usr/bin/bash", "-l", "-c"]
