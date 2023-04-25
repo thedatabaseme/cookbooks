@@ -5,4 +5,4 @@ RUN apt update && \
 
 WORKDIR /
 
-ENTRYPOINT ["sleep", "infinity"]
+ENTRYPOINT ["psql"]
