@@ -5,4 +5,4 @@ RUN apt update && \
 
 WORKDIR /
 
-ENTRYPOINT ["/usr/bin/bash", "-l", "-c"]
+ENTRYPOINT ["sleep", "infinity"]
