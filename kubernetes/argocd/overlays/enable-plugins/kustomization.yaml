@@ -3,12 +3,10 @@ kind: Kustomization
 
 namespace: argocd
 
-bases:
-  - ../../base
-
 resources:
+  - ../../base
   - configmap.yaml
   - application.yaml
 
 patches:
-  - deployment.yaml
+  - path: deployment.yaml
