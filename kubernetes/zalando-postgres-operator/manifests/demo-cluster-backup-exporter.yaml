@@ -1,0 +1,62 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-cluster
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 2Gi
+  numberOfInstances: 3
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
+  sidecars:
+    - name: "backup-exporter"
+      image: "ghcr.io/thedatabaseme/wal-g-exporter:0.1.0"
+      env:
+        - name: PGHOST
+          value: 127.0.0.1
+        - name: PGPORT
+          value: "5432"
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: postgres.postgres-demo-cluster.credentials.postgresql.acid.zalan.do
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: postgres.postgres-demo-cluster.credentials.postgresql.acid.zalan.do
+      ports:
+        - name: backup-exporter
+          containerPort: 9351
+          protocol: TCP
+  additionalVolumes:
+  - mountPath: /run/etc
+    name: walg
+    targetContainers:
+    - postgres
+    - backup-exporter
+    volumeSource:
+      emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-demo-cluster-backup-exporter
+  namespace: postgres
+spec:
+  selector:
+    application: spilo
+    cluster-name: postgres-demo-cluster
+    spilo-role: master
+  ports:
+  - port: 9351
+    targetPort: 9351
