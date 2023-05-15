@@ -1,0 +1,15 @@
+services:
+  semaphore:
+    container_name: Semaphore
+    ports:
+      - 3000:3000
+    image: semaphoreui/semaphore:v2.8.90
+    environment:
+      SEMAPHORE_DB_DIALECT: bolt
+      SEMAPHORE_ADMIN_PASSWORD: Supersecret
+      SEMAPHORE_ADMIN_NAME: admin
+      SEMAPHORE_ADMIN_EMAIL: admin@localhost
+      SEMAPHORE_ADMIN: admin
+    volumes:
+      - /docker/semaphore/data/home:/etc/semaphore
+      - /docker/semaphore/data/lib:/var/lib/semaphore
