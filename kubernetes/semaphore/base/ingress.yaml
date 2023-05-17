@@ -10,8 +10,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - semaphore..mydomain.de
-    secretName: semaphore..mydomain.de
+    - semaphore.mydomain.de
+    secretName: semaphore.mydomain.de
   rules:
   - host: semaphore..mydomain.de
     http:
