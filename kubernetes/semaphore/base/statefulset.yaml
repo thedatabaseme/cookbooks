@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: semaphore
+  namespace: semaphore
+spec:
+  replicas: 1
+  serviceName: semaphore-service
+  selector:
+    matchLabels:
+      app: semaphore
+  template:
+    metadata:
+      labels:
+        app: semaphore
+    spec:
+      containers:
+        - name: semaphore
+          image: semaphoreui/semaphore:v2.8.90
+          env:
+            - name: SEMAPHORE_DB_DIALECT
+              value: bolt
+            - name: SEMAPHORE_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: semaphore-secret
+                  key: semaphore-admin-password
+            - name: SEMAPHORE_ADMIN_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: semaphore-secret
+                  key: semaphore-admin-name
+            - name: SEMAPHORE_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: semaphore-secret
+                  key: semaphore-admin-email
+            - name: SEMAPHORE_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: semaphore-secret
+                  key: semaphore-admin
+          ports:
+            - name: semaphore
+              containerPort: 3000
+          volumeMounts:
+            - name: semaphore-database
+              mountPath: /var/lib/semaphore
+            - name: semaphore
+              mountPath: /etc/semaphore
+  volumeClaimTemplates:
+    - metadata:
+        name: semaphore-database
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        volumeMode: Filesystem
+        resources:
+          requests:
+            storage: 2Gi
+    - metadata:
+        name: semaphore
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        volumeMode: Filesystem
+        resources:
+          requests:
+            storage: 2Gi

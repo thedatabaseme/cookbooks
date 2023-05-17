@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: semaphore-service
+spec:
+  selector:
+    app: semaphore
+  ports:
+  - port: 3000
+    targetPort: 3000
