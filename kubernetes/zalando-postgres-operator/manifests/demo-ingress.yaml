@@ -1,0 +1,89 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cluster01
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: cluster02
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-cluster01.cluster01.thedatabaseme.de
+  namespace: cluster01
+spec:
+  dnsNames:
+  - postgres-cluster01.cluster01.thedatabaseme.de
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-staging
+  secretName: postgres-cluster01-cluster01-thedatabaseme-de
+  usages:
+  - digital signature
+  - key encipherment
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-cluster02.cluster02.thedatabaseme.de
+  namespace: cluster02
+spec:
+  dnsNames:
+  - postgres-cluster02.cluster02.thedatabaseme.de
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-staging
+  secretName: postgres-cluster02-cluster02-thedatabaseme-de
+  usages:
+  - digital signature
+  - key encipherment
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-cluster01
+  namespace: cluster01
+spec:
+  teamId: "postgres"
+  volume:
+    size: 5Gi
+  numberOfInstances: 1
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
+  tls:
+    secretName: postgres-cluster01-cluster01-thedatabaseme-de
+  spiloFSGroup: 103
+  enableMasterLoadBalancer: true
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-cluster02
+  namespace: cluster02
+spec:
+  teamId: "postgres"
+  volume:
+    size: 5Gi
+  numberOfInstances: 1
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
+  tls:
+    secretName: postgres-cluster02-cluster02-thedatabaseme-de
+  spiloFSGroup: 103
+  enableMasterLoadBalancer: true
