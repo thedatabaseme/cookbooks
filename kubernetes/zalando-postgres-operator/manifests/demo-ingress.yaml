@@ -11,16 +11,16 @@ metadata:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-cluster01.cluster01.thedatabaseme.de
+  name: postgres-cluster01.cluster01.example.com
   namespace: cluster01
 spec:
   dnsNames:
-  - postgres-cluster01.cluster01.thedatabaseme.de
+  - postgres-cluster01.cluster01.example.com
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
     name: letsencrypt-staging
-  secretName: postgres-cluster01-cluster01-thedatabaseme-de
+  secretName: postgres-cluster01-cluster01-example-com
   usages:
   - digital signature
   - key encipherment
@@ -28,16 +28,16 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postgres-cluster02.cluster02.thedatabaseme.de
+  name: postgres-cluster02.cluster02.example.com
   namespace: cluster02
 spec:
   dnsNames:
-  - postgres-cluster02.cluster02.thedatabaseme.de
+  - postgres-cluster02.cluster02.example.com
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
     name: letsencrypt-staging
-  secretName: postgres-cluster02-cluster02-thedatabaseme-de
+  secretName: postgres-cluster02-cluster02-example-com
   usages:
   - digital signature
   - key encipherment
@@ -61,7 +61,7 @@ spec:
   postgresql:
     version: "14"
   tls:
-    secretName: postgres-cluster01-cluster01-thedatabaseme-de
+    secretName: postgres-cluster01-cluster01-example-com
   spiloFSGroup: 103
   enableMasterLoadBalancer: true
 ---
@@ -84,6 +84,6 @@ spec:
   postgresql:
     version: "14"
   tls:
-    secretName: postgres-cluster02-cluster02-thedatabaseme-de
+    secretName: postgres-cluster02-cluster02-example-com
   spiloFSGroup: 103
   enableMasterLoadBalancer: true
