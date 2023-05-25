@@ -1,0 +1,14 @@
+fullnameOverride: ingress-cluster01
+controller:
+  name: ingress-cluster01-ctrl
+  containerName: controller
+  ingressClassResource:
+    name: ingress-cluster01
+    controllerValue: "k8s.io/ingress-cluster01-ctrl"
+  ingressClass: ingress-cluster01
+  extraArgs:
+    tcp-services-configmap: "cluster01/tcp-services"
+  publishService:
+    enabled: false
+  service:
+    enabled: false

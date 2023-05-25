@@ -1,0 +1,20 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-cluster02
+spec:
+  teamId: "postgres"
+  volume:
+    size: 5Gi
+  numberOfInstances: 1
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
+  tls:
+    secretName: postgres-cluster02-homelab-thedatabaseme-de
+  spiloFSGroup: 103

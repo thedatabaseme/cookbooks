@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postgres-cluster02.homelab.thedatabaseme.de
+spec:
+  dnsNames:
+  - postgres-cluster02.homelab.thedatabaseme.de
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-staging
+  secretName: postgres-cluster02-homelab-thedatabaseme-de
+  usages:
+  - digital signature
+  - key encipherment
