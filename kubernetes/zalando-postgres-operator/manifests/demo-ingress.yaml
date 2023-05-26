@@ -64,6 +64,8 @@ spec:
     secretName: postgres-cluster01-cluster01-example-com
   spiloFSGroup: 103
   enableMasterLoadBalancer: true
+  allowedSourceRanges:
+  - 0.0.0.0/0
 ---
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
@@ -87,3 +89,5 @@ spec:
     secretName: postgres-cluster02-cluster02-example-com
   spiloFSGroup: 103
   enableMasterLoadBalancer: true
+  allowedSourceRanges:
+  - 0.0.0.0/0
