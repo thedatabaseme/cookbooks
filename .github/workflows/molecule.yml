@@ -21,6 +21,9 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Podman
+        run: apt update && apt install podman
+
       - name: Install dependencies.
         run: pip3 install yamllint ansible-lint ansible molecule "molecule-plugins[podman]"
 
