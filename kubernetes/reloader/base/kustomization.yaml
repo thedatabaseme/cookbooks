@@ -5,4 +5,4 @@ namespace: reloader
 
 bases:
   - namespace.yaml
-  - https://github.com/stakater/Reloader/deployments/kubernetes?ref=v1.0.25
+  - https://github.com/stakater/Reloader/deployments/kubernetes?ref=v1.0.26
