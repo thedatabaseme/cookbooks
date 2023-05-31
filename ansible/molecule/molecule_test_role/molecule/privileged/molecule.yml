@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: ubuntu
-    image: geerlingguy/docker-ubuntu2004-ansible
+    image: geerlingguy/docker-ubuntu2204-ansible
     tmpfs:
       - /run
       - /tmp
