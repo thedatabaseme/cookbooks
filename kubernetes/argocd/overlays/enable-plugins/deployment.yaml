@@ -10,7 +10,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 999
-          image: ghcr.io/thedatabaseme/kube-tools:0.1.5
+          image: ghcr.io/thedatabaseme/kube-tools:0.4.0
           imagePullPolicy: IfNotPresent
           command: [/var/run/argocd/argocd-cmp-server]
           volumeMounts:
