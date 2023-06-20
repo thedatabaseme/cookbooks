@@ -9,5 +9,6 @@ resources:
   - https://raw.githubusercontent.com/zalando/postgres-operator/v1.10.0/ui/manifests/service.yaml
   - https://raw.githubusercontent.com/zalando/postgres-operator/v1.10.0/ui/manifests/ui-service-account-rbac.yaml
 
-patchesStrategicMerge:
-  - "ingress.yaml"
+patches:
+  - path: ingress.yaml
+  - path: deployment.yaml

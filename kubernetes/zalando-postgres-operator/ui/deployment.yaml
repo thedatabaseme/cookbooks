@@ -1,0 +1,12 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "postgres-operator-ui"
+spec:
+  template:
+    spec:
+      containers:
+        - name: "service"
+          env:
+            - name: "APP_URL"
+              value: "http://localhost:8000" # might need to be adjusted to your ingress host / DNS name. See #2302 for detail https://github.com/zalando/postgres-operator/issues/2302
