@@ -23,7 +23,7 @@ create database guacamole owner guacamole;
 You need to initialize the database created above with an initdb script. You can generate the script with a docker container.
 
 ```
- docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > initdb.sql
+ docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgresql > initdb.sql
 ```
 
 Use `psql` to run the sql script against the datbase created above.
