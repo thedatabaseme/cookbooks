@@ -1,0 +1,34 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-cluster-pooler
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 2Gi
+  numberOfInstances: 2
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
+  enableConnectionPooler: true
+  enableMasterPoolerLoadBalancer: true
+  allowedSourceRanges:  # load balancers' source ranges for both master and replica services
+  - 192.168.0.0/16
+  connectionPooler:
+    numberOfInstances: 2
+    mode: "transaction"
+    schema: "pooler"
+    user: "pooler"
+    resources:
+      requests:
+        cpu: 300m
+        memory: 100Mi
+      limits:
+        cpu: "1"
+        memory: 100Mi
