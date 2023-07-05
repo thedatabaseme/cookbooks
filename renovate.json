@@ -6,7 +6,7 @@
     "platform": "github",
     "includeForks": false,
     "repositories": [
-      "thedatabaseme/cookbooks-private"
+      "thedatabaseme/cookbooks"
     ],
     "extends": [
       "config:base",
@@ -23,7 +23,7 @@
           "major",
           "lockFileMaintenance"
         ],
-        "dependencyDashboardApproval": false,
+        "dependencyDashboard": false,
         "stabilityDays": 0
       }
     ],
