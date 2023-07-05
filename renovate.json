@@ -10,7 +10,8 @@
     ],
     "extends": [
       "config:base",
-      ":disableMajorUpdates"
+      ":disableMajorUpdates",
+      ":disableDependencyDashboard"
     ],
     "packageRules": [
       {
