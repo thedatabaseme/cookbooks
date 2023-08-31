@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: guacamole-postgresql
+  namespace: guacamole
+spec:
+  serviceName: guacamole-postgresql
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole-postgresql
+  template:
+    metadata:
+      labels:
+        app: guacamole-postgresql
+    spec:
+      containers:
+      - name: guacamole-postgresql
+        image: postgres:13
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done
+          failureThreshold: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done
+          failureThreshold: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        startupProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - until pg_isready -U ${POSTGRES_USER} -h localhost; do sleep 2 ; done
+          failureThreshold: 60
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: "500m"
+            memory: 8Gi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-password
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: db
+          mountPath: /var/lib/postgresql/data
+        - name: varlogs
+          mountPath: /var/logs
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: varlogs
+        emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: db
+    spec:
+      accessModes:
+      - ReadWriteMany
+      resources:
+        requests:
+          storage: 10Gi
