@@ -31,7 +31,7 @@ spec:
             claimName: portainer
       containers:
         - name: portainer
-          image: "portainer/portainer-ce:2.18.4"
+          image: "portainer/portainer-ce:2.19.0"
           imagePullPolicy: Always
           args:
           - '--tunnel-port=30776'          
