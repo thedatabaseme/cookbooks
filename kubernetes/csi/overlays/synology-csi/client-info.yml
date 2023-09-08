@@ -1,0 +1,13 @@
+---
+clients:
+  - host: 192.168.1.10
+    port: 5001
+    https: true
+    username: dsmuser     # Your DSM username
+    password: Supersecret # DSM password
+
+#host:                      # ipv4 address or domain of the DSM
+#port:                      # port for connecting to the DSM
+#https:                     # set this true to use https. you need to specify the port to DSM HTTPS port as well
+#username:                  # username
+#password:                  # password

@@ -1,0 +1,9 @@
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshot
+metadata:
+  name: new-snapshot-test
+  namespace: synology-csi
+spec:
+  volumeSnapshotClassName: synology-snapshotclass
+  source:
+    persistentVolumeClaimName: syn-iscsi-test

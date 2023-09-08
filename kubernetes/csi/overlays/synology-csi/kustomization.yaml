@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/namespace.yml
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/controller.yml
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/csi-driver.yml
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/node.yml
+  - storageclass.yaml
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/snapshotter/snapshotter.yaml
+  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/main/deploy/kubernetes/v1.20/snapshotter/volume-snapshot-class.yml
+
+secretGenerator:
+  - name: client-info-secret
+    namespace: synology-csi
+    files:
+      - client-info.yml
+
+generatorOptions:
+  disableNameSuffixHash: true

@@ -1,0 +1,14 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  name: synology-iscsi-storage
+provisioner: csi.san.synology.com
+parameters:
+  fsType: 'ext4'
+  dsm: '192.168.1.10' # has to be one dsm endpoint configured in the client-info.yml
+  location: '/volume3' # specifies the volume you want to use to provision iscsi volume
+  formatOptions: '--nodiscard'
+reclaimPolicy: Delete
+allowVolumeExpansion: true
