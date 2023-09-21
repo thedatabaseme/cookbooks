@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: semaphore
-          image: semaphoreui/semaphore:v2.9.36
+          image: semaphoreui/semaphore:v2.9.37
           env:
             - name: SEMAPHORE_DB_DIALECT
               value: bolt
