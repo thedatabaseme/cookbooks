@@ -1,0 +1,60 @@
+apiVersion: v1
+data:
+  password: RzZ6RjQ5bWUxZnZnV0NoQ1dtaTY0aFpWczJSWEZiU1FhSWdNN3ROSWl1Uk9mMEk4aldoNmpKRmxQUThVaTFpMA==
+  username: ZGVtb3VzZXI=
+kind: Secret
+metadata:
+  labels:
+    application: spilo
+    cluster-name: postgres-demo-standby-cluster-source
+    team: postgres
+  name: demouser.postgres-demo-standby-cluster-source.credentials.postgresql.acid.zalan.do
+  namespace: postgres
+type: Opaque
+---
+apiVersion: v1
+data:
+  password: MDBva3lDU2x1YkZXdkQwdWgxRlJSRzU5OEg3bU1yWE11djRHc0tPTHQyb2ZOMlZ5UDNkd1pxcU9WOEk5UEtOaA==
+  username: cG9zdGdyZXM=
+kind: Secret
+metadata:
+  labels:
+    application: spilo
+    cluster-name: postgres-demo-standby-cluster-source
+    team: postgres
+  name: postgres.postgres-demo-standby-cluster-source.credentials.postgresql.acid.zalan.do
+  namespace: postgres
+type: Opaque
+---
+apiVersion: v1
+data:
+  password: ZGJkYlozY2diZ3pGM2lhVlBaeGhKU0d4Vm1yUVlId2ZxYXV3cmx5eUNZdnJ5dG5DeEprbVdtUkU3R0F5eWNZaw==
+  username: c3RhbmRieQ==
+kind: Secret
+metadata:
+  labels:
+    application: spilo
+    cluster-name: postgres-demo-standby-cluster-source
+    team: postgres
+  name: standby.postgres-demo-standby-cluster-source.credentials.postgresql.acid.zalan.do
+  namespace: postgres
+type: Opaque
+---
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: postgres-demo-standby-cluster-source
+  namespace: postgres
+spec:
+  teamId: "postgres"
+  volume:
+    size: 2Gi
+  numberOfInstances: 2
+  users:
+    demouser:  # database owner
+    - superuser
+    - createdb
+  databases:
+    demo: demouser  # dbname: owner
+  postgresql:
+    version: "14"
