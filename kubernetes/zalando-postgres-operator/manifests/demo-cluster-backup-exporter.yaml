@@ -18,7 +18,7 @@ spec:
     version: "14"
   sidecars:
     - name: "backup-exporter"
-      image: "ghcr.io/thedatabaseme/wal-g-exporter:0.2.1"
+      image: "ghcr.io/thedatabaseme/wal-g-exporter:0.3.0"
       env:
         - name: PGHOST
           value: 127.0.0.1
