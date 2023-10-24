@@ -14,64 +14,169 @@ spec:
         app: guacamole
     spec:
       containers:
-        - name: guacd
-          image: guacamole/guacd:1.5.3
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 4822
-          readinessProbe:
-            tcpSocket:
-              port: 4822
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 4822
-            initialDelaySeconds: 15
-            periodSeconds: 20
-        - name: guacamole
-          image: guacamole/guacamole:1.5.3
-          imagePullPolicy: IfNotPresent
-          env:
-            - name: GUACD_HOSTNAME
-              value: "localhost"
-            - name: GUACD_PORT
-              value: "4822"
-            - name: POSTGRES_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: guacamole-database-credentials
-                  key: postgres-port
-            - name: POSTGRES_HOSTNAME
-              valueFrom:
-                secretKeyRef:
-                  name: guacamole-database-credentials
-                  key: postgres-hostname
-            - name: POSTGRES_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: guacamole-database-credentials
-                  key: postgres-database
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: guacamole-database-credentials
-                  key: postgres-user
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: guacamole-database-credentials
-                  key: postgres-password
-          ports:
-            - name: guacamole-app
-              containerPort: 8080
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 20
+      - name: guacamole
+        image: guacamole/guacamole:1.5.3
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: GUACD_HOSTNAME
+          value: "localhost"
+        - name: GUACD_PORT
+          value: "4822"
+        - name: POSTGRESQL_HOSTNAME
+          value: guacamole-postgresql
+        - name: POSTGRESQL_DATABASE
+          value: guacamole
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-user
+        - name: POSTGRESQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-password
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 5
+        livenessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          successThreshold: 1
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 5
+        startupProbe:
+          failureThreshold: 60
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: "500m"
+            memory: 8Gi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+      - name: guacd
+        image: guacamole/guacd:1.5.3
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4822
+        readinessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 2
+          tcpSocket:
+            port: 4822
+          timeoutSeconds: 5
+        livenessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          successThreshold: 1
+          tcpSocket:
+            port: 4822
+          timeoutSeconds: 5
+        startupProbe:
+          failureThreshold: 60
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          successThreshold: 1
+          tcpSocket:
+            port: 4822
+          timeoutSeconds: 2
+        resources:
+          limits:
+            cpu: "500m"
+            memory: 8Gi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+      initContainers:
+      - name: create-initdb-file
+        args:
+        - |-
+          echo "Creating initdb.sql file..."
+          /opt/guacamole/bin/initdb.sh --postgresql >/initdb/initdb.sql
+          if [ -e /initdb/initdb.sql ]; then
+            echo "Init file created successfully!"
+            exit 0
+          else
+            echo "Init file failed to create."
+            exit 1
+          fi
+        command:
+        - /bin/sh
+        - -c
+        image: guacamole/guacamole:1.5.3
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          fsGroup: 1001
+          fsGroupChangePolicy: OnRootMismatch
+          runAsGroup: 1001
+          runAsUser: 1001
+        volumeMounts:
+        - mountPath: /initdb
+          name: initdb
+      - name: initialize-db
+        args:
+        - |-
+          psql -h "$POSTGRESQL_HOSTNAME" -d "$POSTGRESQL_DATABASE" -U "$POSTGRESQL_USER" -o '/dev/null' -c 'SELECT * FROM public.guacamole_user'
+          if [ $? -eq 0 ]; then
+            echo "DB already initialized. Skipping..."
+          else
+            echo "Initializing DB's schema..."
+            psql -h "$POSTGRESQL_HOSTNAME" -d "$POSTGRESQL_DATABASE" -U "$POSTGRESQL_USER" -a -w -f /initdb/initdb.sql
+            if [ $? -eq 0 ]; then
+              echo "DB's schema initialized successfully!"
+              exit 0
+            else
+              echo "DB's schema failed to initialize."
+              exit 1
+            fi
+          fi
+        command:
+        - /bin/sh
+        - -c
+        env:
+        - name: POSTGRESQL_HOSTNAME
+          value: guacamole-postgresql
+        - name: POSTGRESQL_DATABASE
+          value: guacamole
+        - name: POSTGRESQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-user
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: guacamole-database-credentials
+              key: postgres-password
+        image: postgres:13
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          fsGroup: 1001
+          fsGroupChangePolicy: OnRootMismatch
+          runAsGroup: 1001
+          runAsUser: 1001
+        volumeMounts:
+        - mountPath: /initdb
+          name: initdb
+      volumes:
+      - name: initdb
+        persistentVolumeClaim:
+          claimName: guacamole-initdb
