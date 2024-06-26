@@ -3,7 +3,7 @@ services:
     container_name: Semaphore
     ports:
       - 3000:3000
-    image: semaphoreui/semaphore:v2.10.7
+    image: semaphoreui/semaphore:v2.19.10
     environment:
       SEMAPHORE_DB_DIALECT: bolt
       SEMAPHORE_ADMIN_PASSWORD: Supersecret
