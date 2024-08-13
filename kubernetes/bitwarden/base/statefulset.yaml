@@ -23,7 +23,7 @@ spec:
         fsGroup: 33
         runAsUser: 33
       containers:
-      - image: vaultwarden/server:1.31.0
+      - image: vaultwarden/server:1.32.0
         imagePullPolicy: IfNotPresent
         name: bitwarden
         envFrom:
