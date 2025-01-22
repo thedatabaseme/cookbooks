@@ -19,7 +19,7 @@ jobs:
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: ghcr.io/thedatabaseme/psql-client
           flavor: latest=true
@@ -30,14 +30,14 @@ jobs:
 
       - name: Login to image repository
         if: github.ref_type == 'tag'
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: docker/dockerfile/psql-client/Dockerfile
