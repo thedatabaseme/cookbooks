@@ -30,7 +30,7 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 20
         - name: guacamole
-          image: guacamole/guacamole:1.5.5
+          image: guacamole/guacamole:1.6.0
           imagePullPolicy: IfNotPresent
           env:
             - name: GUACD_HOSTNAME
