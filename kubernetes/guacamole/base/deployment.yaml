@@ -37,31 +37,31 @@ spec:
               value: "localhost"
             - name: GUACD_PORT
               value: "4822"
-            - name: POSTGRES_PORT
+            - name: POSTGRESQL_PORT
               valueFrom:
                 secretKeyRef:
                   name: guacamole-database-credentials
-                  key: postgres-port
-            - name: POSTGRES_HOSTNAME
+                  key: postgresql-port
+            - name: POSTGRESQL_HOSTNAME
               valueFrom:
                 secretKeyRef:
                   name: guacamole-database-credentials
-                  key: postgres-hostname
-            - name: POSTGRES_DATABASE
+                  key: postgresql-hostname
+            - name: POSTGRESQL_DATABASE
               valueFrom:
                 secretKeyRef:
                   name: guacamole-database-credentials
-                  key: postgres-database
-            - name: POSTGRES_USER
+                  key: postgresql-database
+            - name: POSTGRESQL_USER
               valueFrom:
                 secretKeyRef:
                   name: guacamole-database-credentials
-                  key: postgres-user
-            - name: POSTGRES_PASSWORD
+                  key: postgresql-user
+            - name: POSTGRESQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: guacamole-database-credentials
-                  key: postgres-password
+                  key: postgresql-password
           ports:
             - name: guacamole-app
               containerPort: 8080
