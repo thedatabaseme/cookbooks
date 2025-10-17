@@ -20,7 +20,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: pgadmin
-          image: dpage/pgadmin4:9.8
+          image: dpage/pgadmin4:9.9
           imagePullPolicy: Always
           env:
           - name: PGADMIN_DEFAULT_EMAIL
